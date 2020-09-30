@@ -2,10 +2,10 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - v*
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}-v1
+        tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
         draft: false
         prerelease: false
