@@ -6,4 +6,5 @@ build() {
 
 if [[ ${1} == 'build' ]]; then
   build || exit 1
+  ls -l
 fi

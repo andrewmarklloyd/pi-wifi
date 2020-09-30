@@ -40,6 +40,7 @@ jobs:
       uses: Roang-zero1/github-upload-release-artifacts-action@master
       with:
         args:
-        - pi-wifi
+        - dist/bin/
+        - dist/shell/compiled.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
