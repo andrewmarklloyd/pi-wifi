@@ -10,16 +10,13 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
         go-version: ^1.15
       id: go
-
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-
     - name: Get dependencies
       run: |
         go get -v -t -d ./...
@@ -27,6 +24,22 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
-
     - name: Build
       run: ./util.sh build
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+    - uses: actions/checkout@master
+    - name: Create release
+      uses: Roang-zero1/github-create-release-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create GitHub release
+      uses: Roang-zero1/github-upload-release-artifacts-action@master
+      with:
+        args:
+        - pi-wifi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
