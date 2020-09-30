@@ -23,6 +23,11 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	reboot()
 }
 
+func resetHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "<h1>Restting and rebooting Wifi. Connect to 'pi-wifi-config' wireless network to reconfigure the wifi credentials</h1><br><br><a href=\"/\">Home</a>")
+	// reboot()
+}
+
 func reboot() {
 	cmd := exec.Command("sudo", "reboot", "now")
 	err := cmd.Run()
@@ -78,6 +83,7 @@ func main() {
 	fileServer := http.FileServer(http.Dir("/home/pi/static"))
 	http.Handle("/", fileServer)
 	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/reset", resetHandler)
 
 	fmt.Printf("Starting server at port 8080\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
