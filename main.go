@@ -75,7 +75,7 @@ key_mgmt=WPA-PSK
 }
 
 func main() {
-	fileServer := http.FileServer(http.Dir("./static"))
+	fileServer := http.FileServer(http.Dir("/home/pi/static"))
 	http.Handle("/", fileServer)
 	http.HandleFunc("/form", formHandler)
 
