@@ -10,6 +10,8 @@
 if [ -f /boot/ap-mode ]
 then
   /home/pi/pi-wifi &
+else
+ echo no ap mode
 fi
 
 exit 0
